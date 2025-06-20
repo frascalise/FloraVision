@@ -4,9 +4,6 @@ __pycache__/
 *$py.class
 test/
 
-# Models
-alexnet/alexnet.pth
-
 # C extensions
 *.so
 
