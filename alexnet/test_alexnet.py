@@ -48,8 +48,8 @@ if __name__ == "__main__":
     all_preds = []
 
     print("Testing the model...", flush=True)
-    counter = 0
     with torch.no_grad():
+        counter = 0
         for inputs, labels in test:
             counter += 1
             print(f"Processing batch {counter}", flush=True)
@@ -57,10 +57,15 @@ if __name__ == "__main__":
             # Move inputs and labels to the device
             inputs, labels = inputs.to(device), labels.to(device)
             outputs = model(inputs)
+
+            # Get the predicted class with the highest score
             _, preds = torch.max(outputs, 1)
 
+            # Update the total and correct counts (batch-wise)
             total += labels.size(0)
             correct += (preds == labels).sum().item()
+
+            # Move labels and preds to CPU for further processing
             all_labels.extend(labels.cpu().numpy())
             all_preds.extend(preds.cpu().numpy())
     
