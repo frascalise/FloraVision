@@ -117,7 +117,7 @@ if __name__ == "__main__":
     train, valid = getDataset()
 
     print("Creating AlexNet model...", flush=True)
-    alexnet = models.alexnet(pretrained=False)
+    alexnet = models.alexnet(pretrained=True)
     num_classes = len(train.classes)
     alexnet.classifier[6] = nn.Linear(4096, num_classes)
 
