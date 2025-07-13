@@ -1,17 +1,16 @@
 import torch
 import torch.nn as nn
 from torchvision import models, transforms, datasets
+from torchvision.models import AlexNet_Weights
 from torch.utils.data import DataLoader
 from sklearn.metrics import classification_report
 import yaml
 
 
 def getDataset():
-    transform = transforms.Compose([
-        transforms.Resize(227),
-        transforms.ToTensor(),
-        transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])  # ImageNet mean and std
-    ])
+    # Default transforms for AlexNet (good norm to use it)
+    # (https://docs.pytorch.org/vision/main/models/generated/torchvision.models.alexnet.html)
+    transform = AlexNet_Weights.IMAGENET1K_V1.transforms()
 
     # Load dataset path from ./params.yaml
     with open('params.yaml', 'r') as file:
@@ -28,6 +27,11 @@ if __name__ == "__main__":
     # Set the device to GPU if available, otherwise CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+    with open('params.yaml', 'r') as file:
+        params = yaml.safe_load(file)
+        model_name = params['model_name']
+        pretrained = params['pretrained']
+
     # Load the dataset
     print("Loading dataset...", flush=True)
     test = getDataset()
@@ -35,9 +39,14 @@ if __name__ == "__main__":
 
     # Load the pre-trained AlexNet model
     print("Loading the AlexNet model...", flush=True)
-    model = models.alexnet(pretrained=False)
+
+    if pretrained:
+        model = models.alexnet(weights='IMAGENET1K_V1')
+    else:
+        model = models.alexnet(weights=None)
+    
     model.classifier[6] = nn.Linear(4096,num_classes)  # Adjust the final layer for the number of classes
-    model.load_state_dict(torch.load('alexnet.pth', map_location=device))  # Load the trained model (weights)
+    model.load_state_dict(torch.load(model_name, map_location=device))  # Load the trained model (weights)
     model.to(device)
     model.eval()
 
