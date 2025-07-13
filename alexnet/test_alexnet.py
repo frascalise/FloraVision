@@ -9,19 +9,19 @@ import yaml
 
 def getDataset():
     # Default transforms for AlexNet (good norm to use it)
-    # (https://docs.pytorch.org/vision/main/models/generated/torchvision.models.alexnet.html)
+    # https://docs.pytorch.org/vision/main/models/generated/torchvision.models.alexnet.html
     transform = AlexNet_Weights.IMAGENET1K_V1.transforms()
 
     # Load dataset path from ./params.yaml
     with open('params.yaml', 'r') as file:
         params = yaml.safe_load(file)
         dataset_path = params['dataset_path']
-    
+
     test_dataset = datasets.ImageFolder(root=f"{dataset_path}", transform=transform)
     test_loader = DataLoader(test_dataset, batch_size=32, shuffle=False)
 
     return test_loader
-    
+
 
 if __name__ == "__main__":
     # Set the device to GPU if available, otherwise CPU
@@ -32,7 +32,7 @@ if __name__ == "__main__":
         model_name = params['model_name']
         pretrained = params['pretrained']
 
-    # Load the dataset
+   # Load the dataset
     print("Loading dataset...", flush=True)
     test = getDataset()
     num_classes = len(test.dataset.classes)
@@ -44,7 +44,7 @@ if __name__ == "__main__":
         model = models.alexnet(weights='IMAGENET1K_V1')
     else:
         model = models.alexnet(weights=None)
-    
+
     model.classifier[6] = nn.Linear(4096,num_classes)  # Adjust the final layer for the number of classes
     model.load_state_dict(torch.load(model_name, map_location=device))  # Load the trained model (weights)
     model.to(device)
@@ -77,7 +77,7 @@ if __name__ == "__main__":
             # Move labels and preds to CPU for further processing
             all_labels.extend(labels.cpu().numpy())
             all_preds.extend(preds.cpu().numpy())
-    
+
     accuracy = correct / total
     print(f'Accuracy of the model on the test set: {accuracy:.4f}')
 
