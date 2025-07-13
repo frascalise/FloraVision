@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from torchvision import models, transforms, datasets
+from torchvision import models, datasets
 from torchvision.models import AlexNet_Weights
 from torch.utils.data import DataLoader
 from sklearn.metrics import classification_report
