@@ -1,0 +1,3 @@
+dataset_path: '../../test'
+model_name: 'vgg11.pth'
+pretrained: false
