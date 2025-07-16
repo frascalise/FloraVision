@@ -1,3 +1,11 @@
 *.pth filter=lfs diff=lfs merge=lfs -text
 alexnet/models alexnet_scratch.pth filter=lfs diff=lfs merge=lfs -text
 alexnet/models alexnet_finetuned.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg11 vgg11.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg11_bn vgg11_bn.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg13 vgg13.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg13_bn vgg13_bn.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg16 vgg16.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg16_bn vgg16_bn.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg19 vgg19.pth filter=lfs diff=lfs merge=lfs -text
+vgg/vgg19_bn vgg19_bn.pth filter=lfs diff=lfs merge=lfs -text
