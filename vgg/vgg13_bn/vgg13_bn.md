@@ -1,6 +1,6 @@
 ## Classification Report VGG13
 
-| Classe | Precision | Recall | F1-Score | Support |
+| Class | Precision | Recall | F1-Score | Support |
 |--------|-----------|--------|----------|---------|
 | Apple___Apple_scab | 1.00 | 1.00 | 1.00 | 504 |
 | Apple___Black_rot | 1.00 | 1.00 | 1.00 | 498 |
@@ -43,7 +43,7 @@
 
 ## Overall
 
-| Metrica | Precision | Recall | F1-Score | Support |
+| Metric | Precision | Recall | F1-Score | Support |
 |---------|-----------|--------|----------|---------|
 | **Accuracy** | - | - | 1.00 | 17,596 |
 | **Macro avg** | 1.00 | 1.00 | 1.00 | 17,596 |
