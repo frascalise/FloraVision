@@ -34,7 +34,7 @@ if __name__ == "__main__":
     test = getDataset()
     num_classes = len(test.dataset.classes)
 
-    # Load the pre-trained VGG11 model
+    # Load the pre-trained VGG13_BN model
     print("Loading the VGG13_BN model...", flush=True)
     model = models.vgg13_bn(weights='IMAGENET1K_V1')
 

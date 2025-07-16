@@ -1,14 +1,14 @@
 import torch
 import torch.nn as nn
 from torchvision import models, datasets
-from torchvision.models import VGG16_Weights
+from torchvision.models import VGG13_Weights
 from torch.utils.data import DataLoader
 from sklearn.metrics import classification_report
 import yaml
 
 
 def getDataset():
-    transform = VGG16_Weights.IMAGENET1K_V1.transforms()
+    transform = VGG13_Weights.IMAGENET1K_V1.transforms()
 
     with open('params.yaml', 'r') as file:
         params = yaml.safe_load(file)
@@ -34,9 +34,9 @@ if __name__ == "__main__":
     test = getDataset()
     num_classes = len(test.dataset.classes)
 
-    # Load the pre-trained VGG16 model
-    print("Loading the VGG16 model...", flush=True)
-    model = models.vgg16(weights='IMAGENET1K_V1')
+    # Load the pre-trained VGG13 model
+    print("Loading the VGG13 model...", flush=True)
+    model = models.vgg13(weights='IMAGENET1K_V1')
 
     model.classifier[6] = nn.Linear(4096,num_classes)  # Adjust the final layer for the number of classes
     model.load_state_dict(torch.load(model_name, map_location=device))  # Load the trained model (weights)
